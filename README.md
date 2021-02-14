@@ -22,7 +22,7 @@ The SubscriptionController accepts new requests from external services (simulate
 
 The PublisherController handles all requests to publish a message to listening subscribers. Like the SubscriptionController it inspects the requests for any unexpected anomalies and if it finds none, it promptly sends them to the subscribers.
 
-##Tests
+## Tests
 The tests included in this project are Feature/Integration tests - hence they test a group of classes and methods in one run cycle to validate the functionality of a feature.
 Both the Publishing and Subcription processes are tested and validated for correctness.
 Some cases tested for include:
@@ -41,18 +41,35 @@ composer install
 ```
 This should run and pull all the dependencies of the project into their necessary folders. Next run the following:
 
-```python
+```sh
 php artisan serve
 ```
 This will start up the project on port 8000 on your local machine. Once started you can find out if the project is running properly by visiting the link below:
 
-```python
+```sh
 http://localhost:8000/
 ```
 An empty page showing the the status should appear reading thus: "Up and Running Correctly"
 
 Now the application is ready to recieve requests.
+##Endpoints and thier corresponding Payload:
 
+### create topic and subscription
+```bash
+POST REQUEST -> localhost:8000/subscribe/{topic} -- [topic can be replaced with any random string indicating the topic title]
+body -> {
+            "url": "test.com"
+        }
+GET REQUEST -> localhost:8000/subscribe/{topic} -- [returns all the subscribers to a specific topic if the topic exists]
+GET REQUEST -> localhost:8000/subscribe/{topic} -- [returns all the subscribers to a specific topic if the topic exists]
+```
+### Publish to subscribers via specific topic
+```bash
+POST REQUEST -> localhost:8000/subscribe/all -[returns all the subscribers per topic]
+body -> {
+            "message": "Your base are belong to us"
+        }
+```
 ## License
 
 The project is open-source and licensed under the [MIT license](https://opensource.org/licenses/MIT).
