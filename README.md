@@ -7,56 +7,52 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About Publisher-Subscriber Demo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This small demo project simulates the core of a typical Publisher-Subscriber pattern in real-time and async processing. The publisher sends messages to subscribers registerd to the its instance.
+As soon as the publisher receives any new requests or input, it promptly forwards them to the subscribers registered for that message signature -topics in this case.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## High Level Architecture
+The Subscriptions and information are stored in a small sqlite database included in this repository. The entire architecture is HTTP/REST dependent. And asides the storage of the subscriptions the rest of the process is stateless i.e. once a message is published successfully, it is no longer stored in the system.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Code Descriptions
+Two key classes are the SubscriptionController and PublisherController that handle requests to their endpoints.
 
-## Learning Laravel
+The SubscriptionController accepts new requests from external services (simulated via API calls) to subscribe/listen to specific topics. It promptly examines the subscription requests for any anomalies before registering them in the sqlite database. These anomalies are captured in the Feature tests included in the project.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The PublisherController handles all requests to publish a message to listening subscribers. Like the SubscriptionController it inspects the requests for any unexpected anomalies and if it finds none, it promptly sends them to the subscribers.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+##Tests
+The tests included in this project are Feature/Integration tests - hence they test a group of classes and methods in one run cycle to validate the functionality of a feature.
+Both the Publishing and Subcription processes are tested and validated for correctness.
+Some cases tested for include:
+  ✓ subscribe to topic
+  ✓ retrieve all subscriptions
+  ✓ retrieve all topics to subscription url
+  ✓ empty subscription url
+  ✓ non existing topics
+  ✓ empty broadcast message body
+  ✓ successful broadcast to subscribers
+## Running The Project
+This project is written entirely in Laravel. To run it on your local machine, pull this project into your desired folder and open the project in any suitable IDE. Open the terminal/commandline in the root of the project and run the following:
 
-## Laravel Sponsors
+```sh
+composer install
+```
+This should run and pull all the dependencies of the project into their necessary folders. Next run the following:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```python
+php artisan serve
+```
+This will start up the project on port 8000 on your local machine. Once started you can find out if the project is running properly by visiting the link below:
 
-### Premium Partners
+```python
+http://localhost:8000/
+```
+An empty page showing the the status should appear reading thus: "Up and Running Correctly"
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Now the application is ready to recieve requests.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The project is open-source and licensed under the [MIT license](https://opensource.org/licenses/MIT).
