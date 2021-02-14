@@ -54,7 +54,7 @@ An empty page showing the the status should appear reading thus: "Up and Running
 Now the application is ready to recieve requests.
 ##Endpoints and thier corresponding Payload:
 
-### create topic and subscription
+### Create topic and subscription
 ```bash
 POST REQUEST -> localhost:8000/subscribe/{topic} -- [topic can be replaced with any random string indicating the topic title]
 body -> {
