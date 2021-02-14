@@ -26,13 +26,13 @@ The PublisherController handles all requests to publish a message to listening s
 The tests included in this project are Feature/Integration tests - hence they test a group of classes and methods in one run cycle to validate the functionality of a feature.
 Both the Publishing and Subcription processes are tested and validated for correctness.
 Some cases tested for include:
-  ✓ subscribe to topic
-  ✓ retrieve all subscriptions
-  ✓ retrieve all topics to subscription url
-  ✓ empty subscription url
-  ✓ non existing topics
-  ✓ empty broadcast message body
-  ✓ successful broadcast to subscribers
+* subscribe to topic
+* retrieve all subscriptions
+* retrieve all topics to subscription url
+* empty subscription url
+* non existing topics
+* empty broadcast message body
+* successful broadcast to subscribers
 ## Running The Project
 This project is written entirely in Laravel. To run it on your local machine, pull this project into your desired folder and open the project in any suitable IDE. Open the terminal/commandline in the root of the project and run the following:
 
