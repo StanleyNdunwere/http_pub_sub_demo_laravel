@@ -55,17 +55,20 @@ Now the application is ready to recieve requests.
 ##Endpoints and thier corresponding Payload:
 
 ### Create topic and subscription
+
+Note: {topic} is a placeholder for a random string that should indicate a topic title.
+
 ```bash
 POST REQUEST -> localhost:8000/subscribe/{topic} -- [topic can be replaced with any random string indicating the topic title]
 body -> {
             "url": "test.com"
         }
 GET REQUEST -> localhost:8000/subscribe/{topic} -- [returns all the subscribers to a specific topic if the topic exists]
-GET REQUEST -> localhost:8000/subscribe/{topic} -- [returns all the subscribers to a specific topic if the topic exists]
+GET REQUEST -> localhost:8000/subscribe/{topic} -- [returns all the subscribers per topic]
 ```
 ### Publish to subscribers via specific topic
 ```bash
-POST REQUEST -> localhost:8000/subscribe/all -[returns all the subscribers per topic]
+POST REQUEST -> localhost:8000/publish/{topic} -- [publish a message to a topic and forwards the message to all subscribers to that topic]
 body -> {
             "message": "Your base are belong to us"
         }
