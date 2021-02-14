@@ -6,7 +6,7 @@ use Tests\TestCase;
 class PublishToSubscribersTest extends TestCase
 {
   use DatabaseTransactions;
-  
+
   public function testNonExistingTopics()
   {
     $response = $this->post('/publish/missing-topic', ["url" => "hellow.com"]);
@@ -27,7 +27,6 @@ class PublishToSubscribersTest extends TestCase
     $response->assertStatus(401);
     $response->assertJson(['status' => 'failed']);
   }
-
 
   public function testSuccessfulBroadCast()
   {
